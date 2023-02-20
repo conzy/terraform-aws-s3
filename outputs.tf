@@ -1,5 +1,7 @@
-# Outputs are defined here.
+output "bucket_name" {
+  value = aws_s3_bucket.this.id
+}
 
-#output "the_output" {
-#  value = aws_iam_role.this.name
-#}
+output "bucket_arn" {
+  value = aws_s3_bucket.this.arn
+}
