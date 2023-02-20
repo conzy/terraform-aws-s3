@@ -1,42 +1,24 @@
-# Module Title
+# S3 Module
 
-<!--
-This repo is a template for creating Terraform modules. It has best practices module structure and has
-linting of terraform HCL via Github actions pre configured.
+An opinionated S3 module that can be used for an organization to create predictable bucket names.
 
-https://www.terraform.io/docs/modules/index.html
-https://www.terraform.io/docs/cloud/registry/using.html
+## Naming scheme
 
--->
+Because the S3 namespace is global and not per account or region. We must ensure globally unique bucket names while also
+ensuring they are predictable. For this reason this module takes the `name` supplied and prepends the region and IAM alias
+of the account. i.e a bucket with the name `my-bucket` would be named `conzy-demo-production-eu-west-1-my-bucket` if created
+in the `eu-west-1` region. This module requires that you have an IAM Account Alias configured. The demo project sets this as
+part of its core infra for convenience.
 
-Add a meaningful description here
-
-## Tagging
-
-Describe what tags this module supports / requires. Try to have good tagging hygiene for cost allocation.
-
-This resource supports tagging. You should pass:
-
-- `workload` (we default to ml)
+This means application code when interacting with buckets can always prepend the alias and region and the code will be
+totally portable between regions and environments.
 
 ## Usage
 
-Include a usage example here. i.e how to use the module or submodules with the minimal configuration
-
 ```hcl
-module "conor-test" {
+module "test" {
   source  = "app.terraform.io/acme/s3/aws"
   version = "0.0.1"
-  name    = "conor-test"
-
-  read_buckets = [
-    "acme-sandbox-foo",
-    "acme-sandbox-bar",
-  ]
+  name    = "my-bucket"
 }
 ```
-
-## Sub Modules
-
-List and describe the sub modules available in this module if they might be used in isolation. Sub modules are just
-directories in the `modules` directory.
