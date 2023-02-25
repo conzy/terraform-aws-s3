@@ -2,7 +2,7 @@ variable "name" {
   type        = string
   description = "Will be appended to IAM Account Alias and region to create bucket name."
   validation {
-    condition     = (can(regex("^[a-z-]+[a-z]+$", var.name)))
+    condition     = (can(regex("^[a-z0-9][a-z0-9-]{1,61}[a-z0-9]$", var.name)))
     error_message = "Name must satisfy ^[a-z-]+[a-z]+$ e.g my-cool-site ."
   }
 }
