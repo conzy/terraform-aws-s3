@@ -2,7 +2,7 @@ data "aws_iam_account_alias" "alias" {}
 data "aws_region" "current" {}
 
 resource "aws_s3_bucket" "this" {
-  bucket = "${data.aws_iam_account_alias.alias.account_alias}-${data.aws_region.current.name}-${var.name}"
+  bucket = "${data.aws_iam_account_alias.alias.account_alias}-${data.aws_region.current.name}-${var.name}-foo"
   tags   = var.tags
 }
 
